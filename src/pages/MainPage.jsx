@@ -1,9 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import AddNew from "../components/addNew";
 
 function MainPage() {
   const [products, setProducts] = useState([]);
+
+  function handleDeleteOne(deleteId) {
+    axios
+      .delete(`https://fakestoreapi.com/products/${deleteId}`)
+      .then((response) => {
+        console.log(response.data);
+
+        window.alert("sucsesfully deleted");
+      });
+  }
 
   function handleGetAllProduct() {
     axios.get("https://fakestoreapi.com/products").then((response) => {
@@ -17,57 +28,63 @@ function MainPage() {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "10px",
-        flexWrap: "wrap",
-      }}
-    >
-      {products.map((product) => {
-        return (
-          <div
-            style={{
-              border: "1px solid black",
-              padding: "10px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              width: "300px",
-              height: "300px",
-            }}
-          >
-            <img
-              src={product.image}
-              alt=""
+    <div>
+      <AddNew />
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          flexWrap: "wrap",
+        }}
+      >
+        {products.map((product) => {
+          return (
+            <div
               style={{
-                width: "100%",
-                height: "120px",
-                objectFit: "contain",
+                border: "1px solid black",
+                padding: "10px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+                width: "300px",
+                height: "300px",
               }}
-            />
-
-            <p>{product.title}</p>
-
-            <p>price:{product.price}</p>
-
-            <div>
-              <button
+            >
+              <img
+                src={product.image}
+                alt=""
                 style={{
-                  backgroundColor: "red",
-                  color: "white",
-                  marginRight: "10px",
+                  width: "100%",
+                  height: "120px",
+                  objectFit: "contain",
                 }}
-              >
-                delete
-              </button>
-              <Link to={`/${product.id}`}>
-                <button>see more</button>
-              </Link>
+              />
+
+              <p>{product.title}</p>
+
+              <p>price:{product.price}</p>
+
+              <div>
+                <button
+                  onClick={() => {
+                    handleDeleteOne(product.id);
+                  }}
+                  style={{
+                    backgroundColor: "red",
+                    color: "white",
+                    marginRight: "10px",
+                  }}
+                >
+                  delete
+                </button>
+                <Link to={`/${product.id}`}>
+                  <button>see more</button>
+                </Link>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
