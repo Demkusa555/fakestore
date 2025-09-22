@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import axios from "axios";
 
-function AddNew() {
+function UpdatePr({ title, price, description, category, image }) {
   const [prductData, setProductdata] = useState({
     title: "",
     price: 0.1,
@@ -21,22 +21,9 @@ function AddNew() {
     });
   }
 
-  function handleSave() {
-    if (
-      prductData.title &&
-      prductData.price &&
-      prductData.description &&
-      prductData.category &&
-      prductData.image
-    ) {
-      console.log("filled");
-    } else {
-      window.alert("sheavse");
-      return;
-    }
-
+  function handleSave(id) {
     axios
-      .post("https://fakestoreapi.com/products", prductData)
+      .put(`https://fakestoreapi.com/products/${id}`, prductData)
       .then((response) => {
         console.log(response.data);
       })
@@ -61,22 +48,31 @@ function AddNew() {
     setToggle(false);
   };
 
+  useEffect(() => {
+    setProductdata({
+      title,
+      price,
+      description,
+      category,
+      image,
+    });
+  }, [title, price, description, category, image]);
+
   return (
-    <div>
+    <>
       <button
-        style={{ marginBottom: "15px" }}
         onClick={() => {
           handleClick();
         }}
       >
-        addNew
+        Update
       </button>
       {toggle && (
         <div className="addnew">
           <div className="Addnew">
             <div className="inputs">
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h2>add new product</h2>
+                <h2>update you'r product</h2>
                 <button
                   onClick={() => {
                     closePopUp();
@@ -92,38 +88,43 @@ function AddNew() {
                     name={"title"}
                     keyname={"title"}
                     handleChange={handleChange}
+                    value={prductData.title}
                   />
                   <TextInput
                     name={"price"}
                     keyname={"price"}
                     type={changeType}
                     handleChange={handleChange}
+                    value={prductData.price}
                   />
                   <TextArea
                     name={"description"}
                     keyname={"description"}
                     handleChange={handleChange}
+                    value={prductData.description}
                   />
                   <TextInput
                     name={"category"}
                     keyname={"category"}
                     handleChange={handleChange}
+                    value={prductData.category}
                   />
                   <TextInput
                     name={"image"}
                     keyname={"image"}
                     handleChange={handleChange}
+                    value={prductData.image}
                   />
                 </div>
               </div>
             </div>
 
-            <button onClick={handleSave}>save</button>
+            <button onClick={handleSave}>Update</button>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
-export default AddNew;
+export default UpdatePr;

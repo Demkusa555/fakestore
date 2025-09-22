@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import AddNew from "../components/addNew";
+import UpdatePr from "../components/UpdatePr";
 
 function MainPage() {
   const [products, setProducts] = useState([]);
@@ -28,15 +29,9 @@ function MainPage() {
   }, []);
 
   return (
-    <div>
+    <div style={{ padding: "30px" }}>
       <AddNew />
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          flexWrap: "wrap",
-        }}
-      >
+      <div className="main1">
         {products.map((product) => {
           return (
             <div
@@ -46,7 +41,7 @@ function MainPage() {
                 display: "flex",
                 flexDirection: "column",
                 gap: "10px",
-                width: "300px",
+                width: "100%",
                 height: "300px",
               }}
             >
@@ -64,7 +59,7 @@ function MainPage() {
 
               <p>price:{product.price}</p>
 
-              <div>
+              <div style={{ display: "flex", gap: "10px" }}>
                 <button
                   onClick={() => {
                     handleDeleteOne(product.id);
@@ -80,6 +75,14 @@ function MainPage() {
                 <Link to={`/${product.id}`}>
                   <button>see more</button>
                 </Link>
+
+                <UpdatePr
+                  title={product.title}
+                  price={product.price}
+                  description={product.description}
+                  category={product.category}
+                  image={product.image}
+                />
               </div>
             </div>
           );

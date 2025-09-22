@@ -41,3 +41,59 @@
   gap: 30px;
   justify-content: space-evenly;
 }
+
+.inputs2 {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  justify-content: space-evenly;
+}
+
+.inputs3 {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.inputs2 input {
+  padding: 8px;
+}
+
+button {
+  background-color: #3e82f1;
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  color: white;
+}
+
+.main1 {
+  display: grid;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: "100vw";
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media screen and (max-width: 1366px) {
+  .main1 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (max-width: 1024px) {
+  .main1 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 762px) {
+  .main1 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .main1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

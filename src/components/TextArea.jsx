@@ -1,7 +1,15 @@
-function TextArea() {
+function TextArea({ name, handleChange, keyname, value }) {
   return (
-    <div>
-      <textarea name="" id=""></textarea>
+    <div className="inputs3">
+      <p>{name}</p>
+      <textarea
+        name={keyname}
+        id=""
+        onChange={(event) => {
+          handleChange(event.target.value, event.target.name);
+        }}
+        value={value}
+      ></textarea>
     </div>
   );
 }
