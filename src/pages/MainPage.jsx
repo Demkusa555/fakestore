@@ -45,44 +45,49 @@ function MainPage() {
                 height: "300px",
               }}
             >
-              <img
-                src={product.image}
-                alt=""
-                style={{
-                  width: "100%",
-                  height: "120px",
-                  objectFit: "contain",
-                }}
-              />
+              <div className="div1">
+                <div>
+                  <img
+                    src={product.image}
+                    alt=""
+                    style={{
+                      width: "100%",
+                      height: "120px",
+                      objectFit: "contain",
+                    }}
+                  />
 
-              <p>{product.title}</p>
+                  <p>{product.title}</p>
 
-              <p>price:{product.price}</p>
+                  <p>price:{product.price}</p>
+                </div>
+                <div>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <button
+                      onClick={() => {
+                        handleDeleteOne(product.id);
+                      }}
+                      style={{
+                        backgroundColor: "red",
+                        color: "white",
+                        marginRight: "10px",
+                      }}
+                    >
+                      delete
+                    </button>
+                    <Link to={`/${product.id}`}>
+                      <button>see more</button>
+                    </Link>
 
-              <div style={{ display: "flex", gap: "10px" }}>
-                <button
-                  onClick={() => {
-                    handleDeleteOne(product.id);
-                  }}
-                  style={{
-                    backgroundColor: "red",
-                    color: "white",
-                    marginRight: "10px",
-                  }}
-                >
-                  delete
-                </button>
-                <Link to={`/${product.id}`}>
-                  <button>see more</button>
-                </Link>
-
-                <UpdatePr
-                  title={product.title}
-                  price={product.price}
-                  description={product.description}
-                  category={product.category}
-                  image={product.image}
-                />
+                    <UpdatePr
+                      title={product.title}
+                      price={product.price}
+                      description={product.description}
+                      category={product.category}
+                      image={product.image}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           );
